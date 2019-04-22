@@ -1,0 +1,71 @@
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<style>
+	body,html,ul,li,ol,p{padding:0;margin:0;}
+	header{
+		height:50px;
+		background:#333333;
+		color:#ffffff;
+		font-size:16px;
+		line-height:50px;
+		display:flex;
+	}
+	.nav-left{
+		flex:1;
+	}
+	.nav-right{
+		width:200px;
+	}
+	header a{
+		color:#ffffff;
+	}
+	ul,li,ol {
+		list-style:none;
+	}
+	.nav{
+		height:50px;
+		box-sizing:border-box;
+	}
+	.nav li{
+		float:left;
+	}
+	.nav li a{
+		padding:0 20px;
+		box-sizing:border-box;
+		cursor:pointer;
+		height:100%;
+		display:inline-block;
+	}
+	.nav li:hover{
+		color:#0ff;
+		background:#0f0f0f;
+	}
+	.is-active {
+		background:#0f0f0f;
+	}
+</style>
+<header>
+	<div class="nav-left">
+		<ul class="nav">
+			<li>
+				<a class="is-active" href="/">首页</a>
+			</li>
+			<li>
+				<a href="/comment">评论</a>
+			</li>
+			<li>
+				<a href="/">个人中心</a>
+			</li>
+		</ul>
+	</div>
+	<div class="nav-right">
+		<span style="color:#fff;"><%= user.username %> </span>
+		<% if (!user.username) { %>
+		<span>
+			<a href="/register">注册</a>
+			<a href="/login">登陆</a>					
+		</span>
+		<% } else { %>
+			<a href="/logout" style="cursor:pointer;color:#0ff">退出</a>
+		<% } %>
+	</div>
+</header>
