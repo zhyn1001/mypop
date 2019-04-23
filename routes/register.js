@@ -1,13 +1,15 @@
 var express = require('express');
 var mongoose = require('mongoose');//导入mongoose模块
+var bcrypt = require('bcrypt');
 var User = require('../model/user');
 var router = express.Router();
+var salt = bcrypt.genSaltSync(10);//设置加密强度
 
 router.get('/', function(req, res, next){
 	res.render('register');
 })
 /* GET users listing. */
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res, next) {	
 	// console.log(req.body.username)
 	User.find({'username':req.body.username},function(err,docs){
 		if(err){
@@ -17,7 +19,7 @@ router.post('/', function(req, res, next) {
 		} else {
 			var user = new User({
 				username:req.body.username,
-				password:req.body.password,
+				password:bcrypt.hashSync(req.body.password,salt),
 				publishTime:new Date()
 			})
 			user.save(function(err){

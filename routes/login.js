@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');//导入mongoose模块
+var bcrypt = require('bcrypt');
 var User = require('../model/user');
 var router = express.Router();
 
@@ -17,7 +18,7 @@ router.post('/', function(req, res, next){
 		if(docs.length==0){
 			res.send('用户不存在');
 		} else {
-			if( doc.password === _password ){
+			if( bcrypt.compareSync(_password,doc.password) ){
 				var _user = {username:doc.username}
 				req.session.user = _user;
 				res.redirect('/');

@@ -38,6 +38,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
+	resave: false, //添加 resave 选项
+	saveUninitialized: true, //添加 saveUninitialized 选项
 	secret: 'express',
 	cookie : {
         maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
