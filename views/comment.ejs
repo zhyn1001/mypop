@@ -7,7 +7,18 @@
 			<div>
 				<div>评论:</div>
 				<div>
-					<p>ssss</p>
+					<style>
+						.comment-content-style{
+							border:1px solid #f1f1f1;
+							height:40px;
+							padding:5px 10px;
+							box-sizing:border-box;
+						}
+					</style>
+					<% list.forEach(function(item) {%>
+						<p><span>用户:</span><%= item.username%></p>
+						<div class="comment-content-style"><%= item.comment%></div>
+					<% }) %>
 				</div>
 			</div>
 		</section>

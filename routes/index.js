@@ -5,12 +5,7 @@ var URL = require('url'); //引入URL中间件，获取req中的参数需要
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	if(req.session.user){  //判断session 状态，如果有效，则返回主页，否则转到登录页面
-        res.render('index',{user : req.session.user});
-    }else{
-        // res.redirect('login');
-		res.render('index',{user:'请登陆'})
-    }
+	res.render('index');
 });
 router.get('/register', function(req, res, next) {
 	res.render('register');

@@ -52,6 +52,22 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next){
+	if(req.url === '/login'){
+		next()
+	} else {
+		console.log(req.session.user)
+		if(req.session.user && req.session.user.username !== "") {
+			app.locals['user'] = req.session.user
+			next()
+		} else {
+			// res.redirect('/login')
+			app.locals['user'] = {user:''}
+			next()
+		}
+	}
+})
+
 
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
