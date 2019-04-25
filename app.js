@@ -1,27 +1,24 @@
-var db = require('./db/db');
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-const favicon = require('express-favicon');
-var session = require('express-session');
-var logger = require('morgan');
-var locals = require('./public/javascripts/locals.js');
+let db = require('./db/db');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let bodyParser = require('body-parser');
+let favicon = require('express-favicon');
+let logger = require('morgan');
+let locals = require('./public/javascripts/locals.js');
 
-var indexRouter = require('./routes/index');
-var registerRouter = require('./routes/register');
-var loginRouter = require('./routes/login');
-var commentRouter = require('./routes/comment');
-var importRouter = require('./routes/import');
-var dbUrl = 'mongodb://localhost/db_project';
+let indexRouter = require('./routes/index');
+let registerRouter = require('./routes/register');
+let loginRouter = require('./routes/login');
+let commentRouter = require('./routes/comment');
+let importRouter = require('./routes/import');
+let dbUrl = 'mongodb://localhost/db_project';
 
-var app = express();
+let app = express();
 // locals(app);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');//设置模板引擎
 // 处理表单数据
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -56,7 +53,6 @@ app.use(function(req, res, next){
 	if(req.url === '/login'){
 		next()
 	} else {
-		console.log(req.session.user)
 		if(req.session.user && req.session.user.username !== "") {
 			app.locals['user'] = req.session.user
 			next()
@@ -76,8 +72,10 @@ app.use('/comment', commentRouter);
 app.use('/import', importRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-	next(createError(404));
+app.use(function (req, res, next) {
+	let err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 // error handler
 app.use(function(err, req, res, next) {
