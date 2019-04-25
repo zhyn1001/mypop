@@ -12,6 +12,7 @@ let registerRouter = require('./routes/register');
 let loginRouter = require('./routes/login');
 let commentRouter = require('./routes/comment');
 let importRouter = require('./routes/import');
+let personRouter = require('./routes/person');
 let dbUrl = 'mongodb://localhost/db_project';
 
 let app = express();
@@ -70,6 +71,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/comment', commentRouter);
 app.use('/import', importRouter);
+app.use('/person', personRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
